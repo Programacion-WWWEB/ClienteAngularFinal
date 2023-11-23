@@ -1,0 +1,11 @@
+<p><br><br></p>
+<mat-list>
+  <div *ngFor="let genero of generos">
+    <mat-list-item>
+      <button mat-button (click)="handleGeneroClick(genero)">{{ genero.nombre }}</button>
+    </mat-list-item>
+  </div>
+</mat-list>
+
+
+

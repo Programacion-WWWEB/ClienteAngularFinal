@@ -1,0 +1,17 @@
+<p><br><br></p>
+<div *ngIf="genero">
+  <div>
+    <div>
+      <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+        <div class="form-group">
+          <label>Nombre: </label>
+          <input title="nombre" type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="genero.nombre" required>
+        </div>
+        <button mat-stroked-button [disabled]="!f.valid">
+          Actualizar</button>
+        <button mat-stroked-button routerLink="/menu-admin-genero">
+          Volver</button>
+      </form>
+    </div>
+  </div>
+</div>

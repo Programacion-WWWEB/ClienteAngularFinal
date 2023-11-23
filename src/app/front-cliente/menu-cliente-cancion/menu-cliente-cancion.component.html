@@ -1,0 +1,26 @@
+
+<div *ngIf="albums">
+  <h1>{{albums.name}}</h1>
+  <p>Artist: {{ albums.artist }}</p>
+  <p>Release Date: {{ albums.release_date }}</p>
+  <p>Genre: {{ albums.genres }}</p>
+
+  <h2>Tracks:</h2>
+  <ul>
+        <div *ngFor="let track of albums.trackListing">
+            <mat-card class="custom-mat-card">
+              <mat-card-header>
+                <mat-card-title>{{ track.title }}</mat-card-title>
+                <mat-card-subtitle>{{ track.duration }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Album: {{track.album.name}}</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button class="btn-outline" mat-stroked-button [routerLink]="['/cliente/menu-cliente-cancion-detalle', track.track_id]">Ver track</button>
+              </mat-card-actions>
+          
+            </mat-card>
+          </div>
+  </ul>
+</div>

@@ -1,0 +1,8 @@
+<mat-form-field class="custom-mat-form-field">
+  <mat-label>Select an album</mat-label>
+  <mat-select (selectionChange)="onAlbumSelected($event.value)">
+    <mat-option *ngFor="let album of albums" [value]="album.album_id">
+      {{ album.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

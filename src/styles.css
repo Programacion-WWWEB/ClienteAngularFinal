@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.division_gris{
+
+	background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            margin: 80px;
+}
+
+.welcome {
+  display: block;
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+}
+
+.slogan {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.card {
+  background-color: #333;
+  color: white;
+  width: 300px;
+  margin: 0 auto;
+
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slogan h2 {
+  font-size: 50px;
+  margin-top: 0;
+}
+
+p {
+  color: white;
+}
+
+.welcome {
+  display: block;
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+}

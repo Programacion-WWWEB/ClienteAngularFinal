@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-title></mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+      <p><mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input placeholder = "name" type="text" matInput formControlName="name" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>RYM Rating</mat-label>
+        <input  placeholder="rym rating" type="number" matInput formControlName="rym_rating" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Artist</mat-label>
+        <input placeholder = "artist" type="text" matInput formControlName="artist" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Type</mat-label>
+        <input  placeholder = "type" type="text" matInput formControlName="type" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Release Date</mat-label>
+        <input placeholder = "date" type="date" matInput formControlName="release_date" placeholder="">
+      </mat-form-field></p>
+<p>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Language</mat-label>
+        <input placeholder = "languages" type="text" matInput formControlName="language" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Genres</mat-label>
+        <input placeholder = "genres" type="text" matInput formControlName="genres" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>colorscheme</mat-label>
+        <input  placeholder = "colorscheme" type="color" matInput formControlName="colorscheme" placeholder="">
+      </mat-form-field>
+
+      <button mat-stroked-button type="submit">Agregar</button></p>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,48 @@
+<p><br><br></p>
+<div *ngIf="album">
+  <div>
+    <div>
+      <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+        <div class="form-group">
+          <label>Name: </label>
+          <input placeholder="name" type="text" class="form-control" id="name" name="name" [(ngModel)]="album.name" required>
+        </div>
+        <div class="form-group">
+          <label>Artist: </label>
+          <input placeholder="artist" type="text" class="form-control" id="artist" name="artist" [(ngModel)]="album.artist" required>
+        </div>
+        <div class="form-group">
+          <label>Type: </label>
+          <input placeholder="type" type="text" class="form-control" id="type" name="type" [(ngModel)]="album.type" required>
+        </div>
+        <div class="form-group">
+          <label>Release Date: </label>
+          <input placeholder="release_date" type="date" class="form-control" id="release_date" name="release_date" [(ngModel)]="album.release_date"
+            required>
+        </div>
+        <div class="form-group">
+          <label>Rym Rating: </label>
+          <input placeholder="rym-rating" type="number" class="form-control" id="rym_rating" name="rym_rating" [(ngModel)]="album.rym_rating"
+            required>
+        </div>
+        <div class="form-group">
+          <label>Language: </label>
+          <input placeholder="language" type="text" class="form-control" id="language" name="language" [(ngModel)]="album.language" required>
+        </div>
+        <div class="form-group">
+          <label>Genres: </label>
+          <input placeholder="genres" type="text" class="form-control" id="genres" name="genres" [(ngModel)]="album.genres" required>
+        </div>
+        <div class="form-group">
+          <label>Colorscheme: </label>
+          <input placeholder="colorscheme" type="color" class="form-control" id="colorscheme" name="colorscheme" [(ngModel)]="album.colorscheme"
+            required>
+        </div>
+        <button mat-stroked-button [disabled]="!f.valid">
+          Actualizar</button>
+        <button mat-stroked-button routerLink="/menu-admin-album">
+          Volver</button>
+      </form>
+    </div>
+  </div>
+</div>

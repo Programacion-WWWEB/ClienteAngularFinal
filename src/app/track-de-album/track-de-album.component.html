@@ -1,0 +1,14 @@
+<p>track-de-album works!</p>
+<div *ngIf="albums">
+  <h1>{{albums.name}}</h1>
+  <p>Artist: {{ albums.artist }}</p>
+  <p>Release Date: {{ albums.release_date }}</p>
+  <p>Genre: {{ albums.genres }}</p>
+
+  <h2>Tracks:</h2>
+  <ul>
+    <li *ngFor="let track of albums.trackListing">
+      {{ track.title }}
+    </li>
+  </ul>
+</div>

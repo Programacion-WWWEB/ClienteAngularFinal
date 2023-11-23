@@ -1,0 +1,24 @@
+<p><br><br></p>
+<h2>Albums</h2>
+<ul>
+    <li *ngFor="let album of some">
+        <mat-card class="custom-mat-card" [style.background]="generateGradient(album.colorscheme)">
+      
+          <mat-card-header>
+            <mat-card-title>{{ album.name }}</mat-card-title>
+            <mat-card-subtitle>{{ album.artist }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Type: {{ album.type }}</p>
+            <p>Release Date: {{ album.release_date | date }}</p>
+            <p>RYM Rating: {{ album.rym_rating }}</p>
+            <p>Language: {{ album.language }}</p>
+            <p>Genres: {{ album.genres }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button class="btn-outline" mat-stroked-button [routerLink]="['/cliente/menu-cliente-cancion', album.album_id]">Ver Album</button>
+          </mat-card-actions>
+        </mat-card>
+    </li>
+  </ul>
+

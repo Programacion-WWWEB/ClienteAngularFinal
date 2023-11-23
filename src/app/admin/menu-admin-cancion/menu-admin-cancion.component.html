@@ -1,0 +1,22 @@
+<p><br><br></p>
+<div *ngIf="track">
+    <h1>{{track.title}}</h1>
+    <p>duration: {{ track.duration }}</p>
+    <button mat-icon-button (click)="toggleSelected()">
+
+        <mat-icon
+          *ngIf="selected"
+          aria-label="Example icon-button with a heart icon">
+          favorite
+        </mat-icon>
+
+        <mat-icon
+          *ngIf="!selected"
+          aria-label="Example icon-button with a heart icon">
+          favorite_border
+        </mat-icon>
+
+      </button>
+
+      <button mat-button color="warn" (click)="deleteTrack()">Eliminar</button>
+  </div>

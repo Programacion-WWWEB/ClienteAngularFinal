@@ -1,0 +1,11 @@
+.user-info-container {
+  margin-top: 20px; /* Adjust the value as needed */
+}
+
+.user-info-container mat-card-content p {
+  color: black;
+}
+
+.logout-button {
+  margin: 20px;
+}

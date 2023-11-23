@@ -1,0 +1,16 @@
+<p><br><br></p>
+<div *ngFor="let genero of generos">
+  <mat-card class="custom-mat-card">
+
+    <mat-list-item>
+      <button mat-button (click)="handleGeneroClick(genero)">{{ genero.nombre }}</button>
+    </mat-list-item>
+    <mat-card-actions>
+
+      <button class="btn-outline-warning" mat-stroked-button routerLink="/admin/editar-genero/{{genero.id}}">
+        Editar</button>
+      <button class="btn-outline-danger" mat-stroked-button (click)="borrar(genero.id)"> Eliminar</button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>
