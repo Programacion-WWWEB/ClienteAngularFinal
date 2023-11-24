@@ -32,6 +32,7 @@ export class AlbumService {
   }
 
   public update(id: number, producto: Album): Observable<any> {
+
     return this.httpClient.put<any>(this.albumURL +`/Actualizar`, producto);
   }
 

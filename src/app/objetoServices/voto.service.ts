@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { TrackDTO } from '../modelo/trackDTO.interface';
 @Injectable()
 export class VotoService {
@@ -21,8 +21,24 @@ console.log(decodedPayload);
     console.log(token)
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${jwtToken}`
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json'
     })
-    return this.httpClient.post<any>(this.VotoURL +`/AgregarClick`, producto, {headers});
+    return this.httpClient.post<any>(this.VotoURL + `/AgregarClick`, producto, { headers, observe: 'response' })
+  .pipe(
+    catchError((error: HttpErrorResponse) => {
+      console.log(error);
+      if (error.error instanceof ErrorEvent) {
+
+        console.error('An error occurred:', error.error.message);
+      } else {
+
+        console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+      }
+
+      return throwError('Something bad happened; please try again later.');
+    })
+  );
+
   }
 }

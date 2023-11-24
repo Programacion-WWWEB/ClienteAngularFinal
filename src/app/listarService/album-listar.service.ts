@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Album } from '../modelo/album.interface';
@@ -8,8 +8,13 @@ export class AlbumListarService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Album[]>{
+  getAll(token: String): Observable<Album[]>{
 
-    return this.http.get<Album[]>("//localhost:8080/Album/Lista");
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.get<Album[]>("//localhost:8080/Album/Lista", {headers});
   }
 }
