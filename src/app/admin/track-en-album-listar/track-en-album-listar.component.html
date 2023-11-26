@@ -1,9 +1,9 @@
 <div class="form-container"><app-form-cancion [album_id]="album_id"></app-form-cancion></div>
 <div *ngIf="albums">
   <h1>{{albums.name}}</h1>
-  <p>Artist: {{ albums.artist }}</p>
-  <p>Release Date: {{ albums.release_date }}</p>
-  <p>Genre: {{ albums.genres }}</p>
+  <p class="black-text">>Artist: {{ albums.artist }}</p>
+  <p class="black-text">>Release Date: {{ albums.release_date }}</p>
+  <p class="black-text">>Genre: {{ albums.genres }}</p>
 
   <h2>Tracks:</h2>
   <ul>
@@ -11,10 +11,10 @@
             <mat-card class="custom-mat-card">
               <mat-card-header>
                 <mat-card-title>{{ track.title }}</mat-card-title>
-                <mat-card-subtitle>{{ track.duration }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ formatDuration(track.duration) }}</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                <p>Album: {{track.album.name}}</p>
+                <p class="black-text">Album: {{track.album.name}}</p>
               </mat-card-content>
               <mat-card-actions>
                 <button class="btn-outline" mat-stroked-button [routerLink]="['/admin/menu-cliente-cancion-detalle', track.track_id]">Ver track</button>

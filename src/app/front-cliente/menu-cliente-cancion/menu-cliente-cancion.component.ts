@@ -37,6 +37,7 @@ export class MenuClienteCancionComponent implements OnInit {
         (data) => {
           this.albums = data;
 
+
         },
         (error) => {
           console.error('Error fetching album details:', error);
@@ -58,6 +59,21 @@ export class MenuClienteCancionComponent implements OnInit {
       });
       }
     }}});
+  }
+
+  formatDuration(durationMillis: number| null): string {
+    if (durationMillis === null) {
+      return '';
+    }
+
+    const totalSeconds = Math.floor(durationMillis / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+
+    return `${formattedMinutes}:${formattedSeconds}`;
   }
 
   onUserInteraction(): void {

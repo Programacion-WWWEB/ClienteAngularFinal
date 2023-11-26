@@ -10,25 +10,29 @@ p{
   .custom-mat-card:hover {
     background-color: #283bc9;
   }
-  
+
   mat-card-title {
     font-size: 22px;
     font-weight: bold;
   }
-  
+
   button {
     border-radius: 4px;
     width: 100%;
   }
-  
+
   .btn-outline {
     background-color: #9299d4;
   }
-  
+
   .btn-outline-warning {
     background-color: #9299d4;
   }
-  
+
   .btn-outline-danger {
     background-color: rgb(136, 39, 39);
+  }
+
+  .black-text {
+    color: black;
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlbumService } from 'src/app/objetoServices/album.service';
 import { TrackService } from 'src/app/objetoServices/track.service';
@@ -22,10 +22,12 @@ export class FormCancionComponent implements OnInit {
   ) {
     this.trackForm = this.formBuilder.group({
       title: ['', Validators.required],
-      duration: [null],
+      duration: ['', [Validators.required, durationFormatValidator]],
       album_id: ['', Validators.required]
     });
   }
+
+
 
   ngOnInit() {
     this.loadAlbumDetails();
@@ -62,10 +64,15 @@ export class FormCancionComponent implements OnInit {
   }
   onSubmit() {
     if (this.trackForm.valid) {
+      console.log(this.trackForm.value.duration)
+      const [minutes, seconds] = this.trackForm.value.duration.split(':').map(Number);
+    const durationMillis = (minutes * 60 + seconds) * 1000;
+
+    console.log(durationMillis)
       const trackData = {
 
         title: this.trackForm.value.title,
-        duration: this.trackForm.value.duration,
+        duration: durationMillis,
         album: {
           album_id: this.trackForm.value.album_id,
 
@@ -93,4 +100,27 @@ export class FormCancionComponent implements OnInit {
   }
 
 }
+
+
 }
+
+function durationFormatValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  const durationPattern = /^([0-5]?\d):([0-5]?\d)$/;
+
+  if (control.value && !durationPattern.test(control.value)) {
+    return { 'invalidDurationFormat': true };
+  }
+
+  const [minutes, seconds] = control.value.split(':').map(Number);
+  const milliseconds = (minutes * 60 + seconds) * 1000;
+
+
+  if (isNaN(milliseconds)) {
+    control.setErrors({ 'invalidDurationFormat': true });
+  } else {
+    control.setErrors(null);
+  }
+
+  return null;
+}
+

@@ -3,6 +3,6 @@ import { Albu } from "./albuDto.interface";
 export interface TrackDTO{
 
   title: string;
-  duration: string | null;
+  duration: number | null;
   album: Albu;
 }
