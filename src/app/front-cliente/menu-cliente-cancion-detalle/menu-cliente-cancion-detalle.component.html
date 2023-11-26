@@ -1,3 +1,4 @@
+<div (mousemove)="onUserInteraction()">
 <p><br><br></p>
 <div *ngIf="track">
     <h1>{{track.title}}</h1>
@@ -9,13 +10,13 @@
           aria-label="Example icon-button with a heart icon">
           favorite
         </mat-icon>
-      
+
         <mat-icon
           *ngIf="!selected"
           aria-label="Example icon-button with a heart icon">
           favorite_border
         </mat-icon>
-      
+
       </button>
   </div>
-  
+</div>

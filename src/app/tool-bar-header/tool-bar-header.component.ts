@@ -66,10 +66,26 @@ navigateToBuscarAlbumes() {
      if (userRoles.includes('Prueba')) {
   this.router.navigate(['/cliente/album-lista']);
      }else if(userRoles.includes('Admin')){
-      this.router.navigate(['/admin/menu-admin'])
+      this.router.navigate(['/admin/menu-admin-album'])
      }else{
       console.error('User does not have the required role for this action');
      }
 }}
 
+navigateToMusicaList() {
+
+  const userRoles = this.authService.getRoles();
+  console.log(userRoles);
+
+  if (userRoles && userRoles.length > 0) {
+    if (userRoles.includes('Prueba')) {
+ this.router.navigate(['/cliente/menu']);
+    }else if(userRoles.includes('Admin')){
+     this.router.navigate(['/admin/menu-admin'])
+    }else{
+     console.error('User does not have the required role for this action');
+    }
+}
+
+}
 }

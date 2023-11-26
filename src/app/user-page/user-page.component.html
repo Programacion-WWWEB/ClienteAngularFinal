@@ -1,4 +1,4 @@
-<p>user-page works!</p>
+<div (mousemove)="onUserInteraction()" class="user-info-container">
 <mat-card *ngIf="userInfo" class="user-info-container">
   <mat-card-content>
     <h2>Welcome, {{ userInfo['nombre del perfil'] }}!</h2>
@@ -22,5 +22,4 @@
     </div>
   </mat-card-content>
 </mat-card>
-
-
+</div>

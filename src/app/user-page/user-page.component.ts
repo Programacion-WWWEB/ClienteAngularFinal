@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenPostBackendService } from '../autenticacionYRegistro/token-post-backend.service';
+import { IdleService } from '../idle.service';
 import { Track } from '../modelo/track.interface';
 import { Voto } from '../modelo/voto.interface';
 import { TrackService } from '../objetoServices/track.service';
@@ -12,14 +13,12 @@ import { VotoService } from '../objetoServices/voto.service';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit{
-
+  isUserActive: boolean;
   userInfo: any;
   votos: Voto[];
   tracks: Track[];
-  constructor(private postBackendAuthService: TokenPostBackendService, private router: Router, private votoService: VotoService, private trackService: TrackService){}
+  constructor(private postBackendAuthService: TokenPostBackendService, private router: Router, private votoService: VotoService, private trackService: TrackService, private idleService: IdleService){}
   ngOnInit(): void {
-
-
 
     const token = localStorage.getItem('jwtToken') || '';
 
@@ -51,6 +50,20 @@ export class UserPageComponent implements OnInit{
       );
 
 
+      this.idleService.isUserActive().subscribe((isActive: boolean) => {
+        this.isUserActive = isActive;
+
+        if (!isActive) {
+
+          localStorage.removeItem('jwtToken');
+
+
+    this.router.navigate(['/home']);
+
+          console.log('User is idle. Redirecting or showing a modal...');
+        }
+      });
+
   }
   matchUsersByTrack() {
     console.log("Usr id:", this.userInfo.id);
@@ -73,6 +86,10 @@ export class UserPageComponent implements OnInit{
 
 
     this.router.navigate(['/home']);
+  }
+
+  onUserInteraction(): void {
+    this.idleService.resetIdleTimer();
   }
 
 

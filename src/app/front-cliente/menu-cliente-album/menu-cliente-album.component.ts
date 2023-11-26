@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IdleService } from 'src/app/idle.service';
 import { AlbumService } from 'src/app/objetoServices/album.service';
 import { Album } from '../../modelo/album.interface';
 @Component({
@@ -11,9 +12,10 @@ import { Album } from '../../modelo/album.interface';
 export class MenuClienteAlbumComponent implements OnInit {
 
   showInfoAlbumConTracks: boolean = true
+  isUserActive: boolean;
 
   albumes: Album[] = [];
-  constructor(private albumService: AlbumService, private router: Router) {
+  constructor(private albumService: AlbumService, private router: Router, private idleService: IdleService) {
 
   }
 
@@ -39,6 +41,26 @@ export class MenuClienteAlbumComponent implements OnInit {
         console.log(err);
       }
     );
+
+    this.idleService.isUserActive().subscribe((isActive: boolean) => {
+      this.isUserActive = isActive;
+
+      if (!isActive) {
+
+        localStorage.removeItem('jwtToken');
+
+
+        this.router.navigate(['/home']);
+
+        console.log('User is idle. Redirecting...');
+      }
+    });
+
+
   }
+}
+
+onUserInteraction(): void {
+  this.idleService.resetIdleTimer();
 }
 }

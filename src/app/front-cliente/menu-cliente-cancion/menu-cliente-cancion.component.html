@@ -1,4 +1,4 @@
-
+<div (mousemove)="onUserInteraction()">
 <div *ngIf="albums">
   <h1>{{albums.name}}</h1>
   <p>Artist: {{ albums.artist }}</p>
@@ -19,8 +19,9 @@
               <mat-card-actions>
                 <button class="btn-outline" mat-stroked-button [routerLink]="['/cliente/menu-cliente-cancion-detalle', track.track_id]">Ver track</button>
               </mat-card-actions>
-          
+
             </mat-card>
           </div>
   </ul>
+</div>
 </div>

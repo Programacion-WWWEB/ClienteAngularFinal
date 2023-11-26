@@ -1,6 +1,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IdleService } from 'src/app/idle.service';
 import { Track } from 'src/app/modelo/track.interface';
 import { TrackService } from 'src/app/objetoServices/track.service';
 import { VotoService } from 'src/app/objetoServices/voto.service';
@@ -12,9 +13,10 @@ import { VotoService } from 'src/app/objetoServices/voto.service';
 export class MenuClienteCancionDetalleComponent implements OnInit {
   track_id: number | null = null;
   track: Track | null = null;
+  isUserActive: boolean;
   @Input() selected: boolean;
   @Output() selectedChange = new EventEmitter<boolean>();
-  constructor(private route: ActivatedRoute, private trackService: TrackService, private votoService: VotoService) { }
+  constructor(private route: ActivatedRoute, private trackService: TrackService, private votoService: VotoService, private idleService: IdleService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -37,6 +39,21 @@ export class MenuClienteCancionDetalleComponent implements OnInit {
             console.error('Error fetching album details:', error);
           }
         );
+
+        this.idleService.isUserActive().subscribe((isActive: boolean) => {
+          this.isUserActive = isActive;
+
+          if (!isActive) {
+
+            localStorage.removeItem('jwtToken');
+
+
+            this.router.navigate(['/home']);
+
+            console.log('User is idle. Redirecting...');
+          }
+        });
+
       }
     }});
   }
@@ -81,4 +98,8 @@ export class MenuClienteCancionDetalleComponent implements OnInit {
       );
 
   }
-  }}}}
+  }}}
+  onUserInteraction(): void {
+    this.idleService.resetIdleTimer();
+  }
+}

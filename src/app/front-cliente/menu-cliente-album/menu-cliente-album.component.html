@@ -1,3 +1,4 @@
+<div (mousemove)="onUserInteraction()">
 <p><br><br></p>
 <div *ngFor="let album of albumes">
   <mat-card class="custom-mat-card" [style.background]="generateGradient(album.colorscheme)">
@@ -18,4 +19,5 @@
     </mat-card-actions>
 
   </mat-card>
+</div>
 </div>
