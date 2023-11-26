@@ -8,6 +8,7 @@ export class RegistrarUsuarioService {
   constructor(private http: HttpClient) {}
 
   addUser(user: UsuarioVotante){
+
     return this.http.post('/UsuarioVotante/Agregar', user);
   }
 }

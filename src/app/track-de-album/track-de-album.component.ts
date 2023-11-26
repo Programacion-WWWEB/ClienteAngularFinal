@@ -16,10 +16,16 @@ export class TrackDeAlbumComponent implements OnInit {
   constructor(private route: ActivatedRoute, private albumService: TrackDeAlbumService) {}
 
   ngOnInit(): void {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
     this.route.paramMap.subscribe(params => {
       this.album_id = params.get('id');
       if (this.album_id !== null) {
-      this.albumService.getAlbumById(this.album_id).subscribe(
+      this.albumService.getAlbumById(this.album_id,jwtToken).subscribe(
         (data) => {
           this.albums = data;
 
@@ -32,7 +38,7 @@ export class TrackDeAlbumComponent implements OnInit {
     });
   }
   }
-
+}
 
 
 

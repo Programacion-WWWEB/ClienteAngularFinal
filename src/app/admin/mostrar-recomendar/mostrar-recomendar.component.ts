@@ -33,7 +33,13 @@ export class MostrarRecomendarComponent implements OnInit{
     });
   }
   ngOnInit(): void {
-    this.recomendarListaService.getAll().subscribe((data: Recomendacion[])=>{
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+    this.recomendarListaService.getAll(jwtToken).subscribe((data: Recomendacion[])=>{
       console.log( data )
       this.recomendaciones = data
 
@@ -44,7 +50,7 @@ export class MostrarRecomendarComponent implements OnInit{
     })
 
   }
-
+  }
 
   matchAlbumsByGenero(generoId: number) {
     console.log("Clicked Genero ID:", generoId);

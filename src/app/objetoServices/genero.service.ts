@@ -17,26 +17,38 @@ export class GeneroService {
     this.generoClickSource.next(genero);
   }
 
-  public lista(): Observable<Genero[]> {
-    return this.httpClient.get<Genero[]>(this.GeneroURL +`/Lista`);
+  public lista(token: String): Observable<Genero[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Genero[]>(this.GeneroURL +`/Lista`, {headers});
   }
 
-  public detail(id: number): Observable<Genero> {
-    return this.httpClient.get<Genero>(this.GeneroURL +`/Buscar/${id}`);
+  public detail(id: number,token: String): Observable<Genero> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Genero>(this.GeneroURL +`/Buscar/${id}`, {headers});
   }
 
   public save(producto: Genero, token: String): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.httpClient.post<any>(this.GeneroURL +`/Agregar`, producto);
+    return this.httpClient.post<any>(this.GeneroURL +`/Agregar`, producto, {headers});
   }
 
-  public update(id: number, producto: Genero): Observable<any> {
-    return this.httpClient.put<any>(this.GeneroURL +`/Actualizar`, producto);
+  public update(id: number, producto: Genero, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.put<any>(this.GeneroURL +`/Actualizar`, producto, {headers});
   }
 
-  public delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.GeneroURL +`/Borrar/${id}`);
+  public delete(id: number, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.delete<any>(this.GeneroURL +`/Borrar/${id}`, {headers});
   }
 }

@@ -45,7 +45,13 @@ export class AlbumListarAdminComponent implements OnInit {
     }
   }
   borrar(id: number) {
-    this.albumService.delete(id).subscribe(
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+    this.albumService.delete(id, jwtToken).subscribe(
       (response) => {
         console.log('se borro album', response)
         window.location.reload();
@@ -57,4 +63,4 @@ export class AlbumListarAdminComponent implements OnInit {
 
   };
 }
-
+}

@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { TrackDTO } from '../modelo/trackDTO.interface';
+import { Voto } from '../modelo/voto.interface';
 @Injectable()
 export class VotoService {
 
@@ -41,4 +42,13 @@ console.log(decodedPayload);
   );
 
   }
+
+  public lista(token: String): Observable<Voto[]> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Voto[]>(this.VotoURL +`/Lista`, { headers });
+  }
+
 }

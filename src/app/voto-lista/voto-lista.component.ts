@@ -13,10 +13,16 @@ export class VotoListaComponent implements OnInit {
   constructor(private votoListaService: VotoListaService){}
 
   ngOnInit(): void {
-  this.votoListaService.getAll().subscribe((data: Voto[])=>{
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+  this.votoListaService.getAll(jwtToken).subscribe((data: Voto[])=>{
 
     this.voto = data;
   })
   }
 
-}
+}}

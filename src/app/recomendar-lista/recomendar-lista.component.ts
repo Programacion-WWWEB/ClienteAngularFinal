@@ -37,7 +37,13 @@ export class RecomendarListaComponent implements OnInit{
     });
   }
   ngOnInit(): void {
-    this.recomendarListaService.getAll().subscribe((data: Recomendacion[])=>{
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+    this.recomendarListaService.getAll(jwtToken).subscribe((data: Recomendacion[])=>{
       console.log( data )
       this.recomendaciones = data
 
@@ -48,7 +54,7 @@ export class RecomendarListaComponent implements OnInit{
     })
 
   }
-
+  }
 
   matchAlbumsByGenero(generoId: number) {
     console.log("Clicked Genero ID:", generoId);
@@ -70,12 +76,18 @@ export class RecomendarListaComponent implements OnInit{
     console.log(albumId);
 
     if (this.selectedAlbumId && this.generoId) {
+      const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
       // Fetch details for the selected genero and album
-      this.generoService.detail(this.generoId).subscribe(
+      this.generoService.detail(this.generoId,jwtToken).subscribe(
         (genero: Genero) => {
           console.log("Genero details:", genero);
 
-          this.albumService.detail(this.selectedAlbumId).subscribe(
+          this.albumService.detail(this.selectedAlbumId,jwtToken).subscribe(
             (album: Album) => {
               console.log("Album details:", album);
 
@@ -102,7 +114,7 @@ export class RecomendarListaComponent implements OnInit{
               };
 
               // Save the recommendation
-              this.recomendarService.save(recommendation).subscribe(
+              this.recomendarService.save(recommendation,jwtToken).subscribe(
                 () => {
                   console.log("Recommendation saved successfully!");
                   window.location.reload();
@@ -124,5 +136,5 @@ export class RecomendarListaComponent implements OnInit{
     }
   }
 }
-
+}
 

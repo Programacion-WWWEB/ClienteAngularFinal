@@ -20,9 +20,18 @@ export class AlbumService {
     return this.httpClient.get<Album[]>(this.albumURL +`/Lista`, { headers });
   }
 
-  public detail(id: number): Observable<Album> {
+  public detail(id: number, token: String): Observable<Album> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Album>(this.albumURL +`/Buscar/${id}`, { headers });
+  }
+
+  public detailnoToken(id: number): Observable<Album> {
+
     return this.httpClient.get<Album>(this.albumURL +`/Buscar/${id}`);
   }
+
 
   public save(producto: Album, token: String): Observable<any> {
     const headers = new HttpHeaders({
@@ -31,13 +40,19 @@ export class AlbumService {
     return this.httpClient.post<any>(this.albumURL +`/Agregar`, producto, {headers});
   }
 
-  public update(id: number, producto: Album): Observable<any> {
+  public update(id: number, producto: Album, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
 
-    return this.httpClient.put<any>(this.albumURL +`/Actualizar`, producto);
+    return this.httpClient.put<any>(this.albumURL +`/Actualizar`, producto, {headers});
   }
 
-  public delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.albumURL +`/Borrar/${id}`);
+  public delete(id: number, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.delete<any>(this.albumURL +`/Borrar/${id}`, {headers});
   }
 
   public getAlbums(): Album[] {

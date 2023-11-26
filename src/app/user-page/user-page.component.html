@@ -10,3 +10,17 @@
   </mat-card-content>
 </mat-card>
 
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Canciones gustadas</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngFor="let track of tracks">
+      <div>
+        <h2>{{ track.title }}</h2>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+

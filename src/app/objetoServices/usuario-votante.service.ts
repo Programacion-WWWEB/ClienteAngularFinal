@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UsuarioVotante } from '../modelo/usuarioVotante.interface';
@@ -17,23 +17,38 @@ export class UsuarioVotanteService {
       this.UsuarioClickSource.next(Usuario);
     }
 
-    public lista(): Observable<UsuarioVotante[]> {
-      return this.httpClient.get<UsuarioVotante[]>(this.UsuarioURL +'/Lista');
+    public lista(token: String): Observable<UsuarioVotante[]> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.httpClient.get<UsuarioVotante[]>(this.UsuarioURL +'/Lista', {headers});
     }
 
-    public detail(id: number): Observable<UsuarioVotante> {
-      return this.httpClient.get<UsuarioVotante>(this.UsuarioURL +'/Buscar/${id}');
+    public detail(id: number,token: String): Observable<UsuarioVotante> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.httpClient.get<UsuarioVotante>(this.UsuarioURL +'/Buscar/${id}',{headers});
     }
 
-    public save(producto: UsuarioVotante): Observable<any> {
-      return this.httpClient.post<any>(this.UsuarioURL +'/Agregar', producto);
+    public save(producto: UsuarioVotante,token: String): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.httpClient.post<any>(this.UsuarioURL +'/Agregar', producto,{headers});
     }
 
-    public update(id: number, producto: UsuarioVotante): Observable<any> {
-      return this.httpClient.put<any>(this.UsuarioURL +'/Actualizar', producto);
+    public update(id: number, producto: UsuarioVotante,token: String): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.httpClient.put<any>(this.UsuarioURL +'/Actualizar', producto,{headers});
     }
 
-    public delete(id: number): Observable<any> {
-      return this.httpClient.delete<any>(this.UsuarioURL +'/Borrar/${id}');
+    public delete(id: number,token: String): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.httpClient.delete<any>(this.UsuarioURL +'/Borrar/${id}',{headers});
     }
 }

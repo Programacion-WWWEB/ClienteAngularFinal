@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recomendacion } from '../modelo/recomendacion.interface';
@@ -9,11 +9,17 @@ export class RecomendacionService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public lista(): Observable<Recomendacion[]> {
-    return this.httpClient.get<Recomendacion[]>(this.GeneroURL +'/Lista');
+  public lista(token: String): Observable<Recomendacion[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Recomendacion[]>(this.GeneroURL +'/Lista', {headers});
   }
 
-  public save(producto: Recomendacion): Observable<any> {
-    return this.httpClient.post<any>(this.GeneroURL +'/Agregar', producto);
+  public save(producto: Recomendacion, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.post<any>(this.GeneroURL +'/Agregar', producto, {headers});
   }
 }

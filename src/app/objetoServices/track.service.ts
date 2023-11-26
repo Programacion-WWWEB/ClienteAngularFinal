@@ -10,26 +10,38 @@ export class TrackService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public lista(): Observable<Track[]> {
-    return this.httpClient.get<Track[]>(this.TrackURL +`/Lista`);
+  public lista(token: String): Observable<Track[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Track[]>(this.TrackURL +`/Lista`, {headers});
   }
 
-  public detail(id: number): Observable<Track> {
-    return this.httpClient.get<Track>(this.TrackURL +`/Buscar/${id}`);
+  public detail(id: number,token: String): Observable<Track> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.get<Track>(this.TrackURL +`/Buscar/${id}`, {headers});
   }
 
   public save(producto: TrackDTO, token: String): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.httpClient.post<any>(this.TrackURL +`/Agregar`, producto);
+    return this.httpClient.post<any>(this.TrackURL +`/Agregar`, producto, {headers});
   }
 
-  public update(producto: Track): Observable<any> {
-    return this.httpClient.put<any>(this.TrackURL +`/Actualizar`, producto);
+  public update(producto: Track, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.put<any>(this.TrackURL +`/Actualizar`, producto, {headers});
   }
 
-  public delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.TrackURL +`/Borrar/${id}`);
+  public delete(id: number, token: String): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.delete<any>(this.TrackURL +`/Borrar/${id}`, {headers});
   }
 }

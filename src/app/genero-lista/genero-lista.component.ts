@@ -15,7 +15,15 @@ export class GeneroListaComponent implements OnInit {
 
   constructor(private generoListaService: GeneroListaService, private router: Router){}
   ngOnInit(): void {
-    this.generoListaService.getAll().subscribe(data => {
+
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+
+    this.generoListaService.getAll(jwtToken).subscribe(data => {
 
       this.generos = data;
     })
@@ -23,7 +31,7 @@ export class GeneroListaComponent implements OnInit {
     this.generoListaService.generoClick$.subscribe((genero) =>
       this.handleGeneroClick(genero));
   }
-
+  }
   handleGeneroClick(genero: Genero) {
     this.clickedGenero = genero;
     this.router.navigate(['/cliente/recomendar-lista', {genero: genero.id}]);

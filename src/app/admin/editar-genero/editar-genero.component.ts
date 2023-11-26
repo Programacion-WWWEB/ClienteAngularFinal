@@ -19,17 +19,29 @@ export class EditarGeneroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
     const id = this.activatedRoute.snapshot.params['id'];
-    this.generoService.detail(id).subscribe(
+    this.generoService.detail(id,jwtToken).subscribe(
       data => {
         this.genero = data;
       }
     );
   }
-
+  }
   onUpdate(): void {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
     const id = this.activatedRoute.snapshot.params['id'];
-    this.generoService.update(id, this.genero).subscribe(
+    this.generoService.update(id, this.genero,jwtToken).subscribe(
       data => {
         this.router.navigate(['/menu-admin-genero']);
       }
@@ -37,4 +49,4 @@ export class EditarGeneroComponent implements OnInit {
   }
 
 }
-
+}

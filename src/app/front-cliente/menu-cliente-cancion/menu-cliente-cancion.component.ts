@@ -19,7 +19,19 @@ export class MenuClienteCancionComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.album_id = Number(params.get('id'));
       if (this.album_id !== null) {
-      this.albumService.detail(this.album_id).subscribe(
+        const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+      const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+      this.albumService.detail(this.album_id,jwtToken).subscribe(
         (data) => {
           this.albums = data;
 
@@ -29,6 +41,6 @@ export class MenuClienteCancionComponent implements OnInit {
         }
       );
       }
-    });
+    }}});
   }
   }

@@ -19,21 +19,34 @@ export class EditarAlbumComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
     const id = this.activatedRoute.snapshot.params['id'];
-    this.albumService.detail(id).subscribe(
+    this.albumService.detail(id,jwtToken).subscribe(
       data => {
         this.album = data;
       }
     );
   }
-
+  }
   onUpdate(): void {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
     const id = this.activatedRoute.snapshot.params['id'];
-    this.albumService.update(id, this.album).subscribe(
+    this.albumService.update(id, this.album, jwtToken).subscribe(
       data => {
         this.router.navigate(['/menu-admin-album']);
       }
     );
   }
 
+}
 }

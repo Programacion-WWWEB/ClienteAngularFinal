@@ -19,7 +19,13 @@ export class MenuAdminCancionComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.track_id = Number(params.get('id'));
       if (this.track_id !== null) {
-        this.trackService.detail(this.track_id).subscribe(
+        const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+        this.trackService.detail(this.track_id, jwtToken).subscribe(
           (data) => {
             this.track = data;
 
@@ -29,7 +35,7 @@ export class MenuAdminCancionComponent implements OnInit {
           }
         );
       }
-    });
+    }});
   }
   public toggleSelected() {
     this.selected = !this.selected;
@@ -38,7 +44,13 @@ export class MenuAdminCancionComponent implements OnInit {
 
   public deleteTrack() {
     if (this.track_id !== null) {
-      this.trackService.delete(this.track_id).subscribe(
+      const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+      this.trackService.delete(this.track_id, jwtToken).subscribe(
         () => {
           this.router.navigate(['/admin/menu-admin-album'])
           console.log('Track eliminado con éxito');
@@ -50,4 +62,5 @@ export class MenuAdminCancionComponent implements OnInit {
     }
   }
 
+}
 }

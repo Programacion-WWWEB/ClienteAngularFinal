@@ -22,7 +22,13 @@ export class GeneroListarAdminComponent implements OnInit {
   }
 
   cargar(): void {
-    this.generoService.lista().subscribe(
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+    this.generoService.lista(jwtToken).subscribe(
       data => {
         this.generos = data;
       },
@@ -33,7 +39,7 @@ export class GeneroListarAdminComponent implements OnInit {
 
     this.generoService.generoClick$.subscribe((genero) =>
       this.handleGeneroClick(genero));
-  }
+  }}
 
   handleGeneroClick(genero: Genero) {
     this.clickedGenero = genero;
@@ -42,17 +48,23 @@ export class GeneroListarAdminComponent implements OnInit {
 
 
   borrar(id: number) {
-    this.generoService.delete(id).subscribe(
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+    this.generoService.delete(id,jwtToken).subscribe(
       (response) => {
-        console.log('se borro album')
+        console.log('se borro album', response)
         window.location.reload();
       },
       (error) => {
-        console.error('error fetching data')
+        console.error('error fetching data', error)
       }
     );
 
   };
 }
-
+}
 

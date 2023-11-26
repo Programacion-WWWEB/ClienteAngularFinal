@@ -12,9 +12,16 @@ export class UsuarioVotanteListComponent implements OnInit{
 
   constructor(private usuarioVotanteService: UsuarioVotanteListService){}
   ngOnInit(): void {
-  this.usuarioVotanteService.getAll().subscribe(data => {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
+  this.usuarioVotanteService.getAll(jwtToken).subscribe(data => {
     this.usuarios = data;
   })
   }
 
+}
 }

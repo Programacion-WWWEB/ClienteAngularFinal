@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { Recomendacion } from '../modelo/recomendacion.interface';
@@ -8,9 +8,13 @@ export class RecomendarListaService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Recomendacion[]>{
+  getAll(token: String): Observable<Recomendacion[]>{
 
-    return this.http.get<Recomendacion[]>("//localhost:8080/Recomendacion/Lista").pipe(
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.get<Recomendacion[]>("//localhost:8080/Recomendacion/Lista", {headers}).pipe(
       catchError(error => {
         console.error('HTTP Error:', error);
         throw error;

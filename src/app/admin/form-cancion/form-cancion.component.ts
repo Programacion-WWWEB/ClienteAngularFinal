@@ -38,8 +38,15 @@ export class FormCancionComponent implements OnInit {
   }
 
   loadAlbumDetails() {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+
+      console.log('Token not found');
+    }else{
     if (this.album_id !== null) {
-      this.albumService.detail(this.album_id).subscribe(
+      console.log('Fetching album details for album_id:', this.album_id);
+      this.albumService.detail(this.album_id,jwtToken).subscribe(
         (album) => {
           // Update form with album details
           this.trackForm.patchValue({
@@ -52,7 +59,7 @@ export class FormCancionComponent implements OnInit {
       );
     }
   }
-
+  }
   onSubmit() {
     if (this.trackForm.valid) {
       const trackData = {
