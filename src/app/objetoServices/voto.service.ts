@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { TrackDTO } from '../modelo/trackDTO.interface';
@@ -49,6 +49,18 @@ console.log(decodedPayload);
       'Authorization': `Bearer ${token}`
     })
     return this.httpClient.get<Voto[]>(this.VotoURL +`/Lista`, { headers });
+  }
+
+  public check(track_id:number, id:number, token: String): Observable<Voto[]> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    let params = new HttpParams();
+    params = params.append('track_id', track_id.toString());
+    params = params.append('id', id.toString());
+    return this.httpClient.get<Voto[]>(this.VotoURL +`/check`, { headers,params });
   }
 
 }

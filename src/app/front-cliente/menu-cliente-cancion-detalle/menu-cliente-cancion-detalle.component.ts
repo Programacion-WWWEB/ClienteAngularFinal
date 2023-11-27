@@ -1,6 +1,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenPostBackendService } from 'src/app/autenticacionYRegistro/token-post-backend.service';
 import { IdleService } from 'src/app/idle.service';
 import { Track } from 'src/app/modelo/track.interface';
 import { TrackService } from 'src/app/objetoServices/track.service';
@@ -14,9 +15,10 @@ export class MenuClienteCancionDetalleComponent implements OnInit {
   track_id: number | null = null;
   track: Track | null = null;
   isUserActive: boolean;
+  userInfo: any;
   @Input() selected: boolean;
   @Output() selectedChange = new EventEmitter<boolean>();
-  constructor(private route: ActivatedRoute, private trackService: TrackService, private votoService: VotoService, private idleService: IdleService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private trackService: TrackService, private votoService: VotoService, private idleService: IdleService, private router: Router, private postBackendAuthService: TokenPostBackendService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -40,6 +42,19 @@ export class MenuClienteCancionDetalleComponent implements OnInit {
           }
         );
 
+        this.postBackendAuthService.sendPostRequestWithToken(jwtToken).subscribe(
+          (response) => {
+            this.userInfo = response;
+            const userId = this.userInfo.id;
+            console.log('User ID:', userId);
+
+            this.checkVotoExistence(userId, jwtToken);
+          },
+          (error) => {
+            console.error('Error fetching user info:', error);
+          }
+        );
+
         this.idleService.isUserActive().subscribe((isActive: boolean) => {
           this.isUserActive = isActive;
 
@@ -56,6 +71,8 @@ export class MenuClienteCancionDetalleComponent implements OnInit {
 
       }
     }});
+
+
   }
   public toggleSelected() {
     this.selected = !this.selected;
@@ -99,6 +116,37 @@ export class MenuClienteCancionDetalleComponent implements OnInit {
 
   }
   }}}
+
+  private checkVotoExistence(userId: number, token: string) {
+
+      if (this.track_id !== null && userId !== null) {
+        this.votoService.check(this.track_id, userId, token).subscribe(
+          (result) => {
+            console.log('Voto existence result:', result);
+            // You can handle the result as needed
+          },
+          (error) => {
+            console.error('Error checking voto existence:', error);
+          }
+        );
+      }
+    }
+
+    formatDuration(durationMillis: number| null): string {
+      if (durationMillis === null) {
+        return '';
+      }
+
+      const totalSeconds = Math.floor(durationMillis / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+
+      const formattedMinutes = String(minutes).padStart(2, '0');
+      const formattedSeconds = String(seconds).padStart(2, '0');
+
+      return `${formattedMinutes}:${formattedSeconds}`;
+    }
+
   onUserInteraction(): void {
     this.idleService.resetIdleTimer();
   }
